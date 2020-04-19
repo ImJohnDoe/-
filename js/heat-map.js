@@ -1,22 +1,15 @@
 require([
     "esri/Map",
-    "esri/layers/CSVLayer",
+    "esri/layers/GeoJSONLayer",
     "esri/views/MapView",
     "esri/widgets/Legend"
-], function(Map, CSVLayer, MapView, Legend) {
+], function(Map, GeoJSONLayer, MapView, Legend) {
     const url =
-        "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.csv";
-
-    // Paste the url into a browser's address bar to download and view the attributes
-    // in the CSV file. These attributes include:
-    // * mag - magnitude
-    // * type - earthquake or other event such as nuclear test
-    // * place - location of the event
-    // * time - the time of the event
+        "http://hrhackathon.itconcept.it/api/v1/filterlistgeo.php";
 
     const template = {
-        title: "{place}",
-        content: "Magnitude {mag} {type} hit {place} on {time}."
+        title: "{name}",
+        content: "{proffession}, {city}"
     };
 
     // The heatmap renderer assigns each pixel in the view with
@@ -41,21 +34,21 @@ require([
             { color: "#e0cf40", ratio: 0.913 },
             { color: "#ffff00", ratio: 1 }
         ],
-        maxPixelIntensity: 25,
+        maxPixelIntensity: 10,
         minPixelIntensity: 0
     };
 
-    const layer = new CSVLayer({
+    const geojsonLayer = new GeoJSONLayer({
         url: url,
-        title: "Concentration of Talent",
-        copyright: "AMPSR",
-        popupTemplate: template,
-        renderer: renderer
+        copyright: "Concentration of Talent",
+        // popupTemplate: template,
+        renderer: renderer,
+        copyright: "AMPSR"
     });
 
     const map = new Map({
         basemap: "gray",
-        layers: [layer]
+        layers: [geojsonLayer]
     });
 
     const view = new MapView({
