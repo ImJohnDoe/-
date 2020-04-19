@@ -4,9 +4,8 @@ require([
     "esri/views/MapView",
     "esri/widgets/Legend"
 ], function(Map, GeoJSONLayer, MapView, Legend) {
-    const urlParams = new URLSearchParams(window.location.search);
     const url =
-        `http://localhost:8000/api/v1/filterlistgeo.php?location=${urlParams.get('location')}&profession=${urlParams.get('profession')}`;
+        'http://hrhackathon.itconcept.it/api/v1/filterlistgeo.php';
 
     const template = {
         title: "{name}",
